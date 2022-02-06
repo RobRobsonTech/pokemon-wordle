@@ -127,6 +127,7 @@ function App() {
 				visible={showWinningModal}
 				onOk={handleClose}
 				onCancel={handleClose}
+				footer={null}
 			>
 				<p>
 					You're a winner! It took you {guessNumber} guess
@@ -170,7 +171,7 @@ function App() {
 				</div> */}
 				</Content>
 
-				<Footer>
+				<Footer className="wordle__footer">
 					<Input.Group compact>
 						<Input
 							id="guess_input"
@@ -190,7 +191,7 @@ function App() {
 							Submit Guess
 						</Button>
 					</Input.Group>
-					{errorMessage && <div className="error_message ">{errorMessage}</div>}
+					{errorMessage && <div className="error_message">{errorMessage}</div>}
 				</Footer>
 			</Layout>
 		</>

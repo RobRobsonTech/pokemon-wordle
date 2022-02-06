@@ -32,6 +32,10 @@
 	width: 100%;
 }
 
+.wordle__footer {
+	padding: 24px 0px;
+}
+
 .wordle__input {
 	text-transform: uppercase;
 }
