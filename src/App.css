@@ -25,6 +25,7 @@
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
+	overflow: auto;
 }
 
 .wordle__divider {
@@ -33,7 +34,7 @@
 }
 
 .wordle__footer {
-	padding: 24px 0px;
+	padding: 24px 0px !important;
 }
 
 .wordle__input {
