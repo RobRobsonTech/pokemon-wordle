@@ -14,6 +14,22 @@
 	height: auto !important;
 }
 
+.wordle__hint {
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+}
+
+.wordle__hint__image svg {
+	margin-left: 15px;
+	height: 30px;
+	width: 30px;
+}
+
+.wordle__hint__pokemon__image {
+	filter: blur(10px);
+}
+
 .wordle__title {
 	font-weight: 700;
 	font-size: 36px;
