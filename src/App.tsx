@@ -35,6 +35,7 @@ function App() {
 	const [isGameComplete, setIsGameComplete] = useState(false);
 	const [showHintModal, setShowHintModal] = useState(false);
 	const [showPokemonHint, setShowPokemonHint] = useState(false);
+	const [usedHint, setUsedHint] = useState(false);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -135,7 +136,12 @@ function App() {
 	};
 
 	const handleChange = (event: { target: { value: any } }) => {
+		if (event.target.value.length > todaysPokemonLettersValue) {
+			return;
+		}
+
 		setErrorMessage("");
+
 		let slicedGuesses = guesses.slice();
 		slicedGuesses[guessNumber] = event.target.value;
 		setGuesses(slicedGuesses);
@@ -143,6 +149,11 @@ function App() {
 
 	const handleClose = () => {
 		setShowWinningModal(false);
+	};
+
+	const handleHintDisplay = () => {
+		setShowPokemonHint(!showPokemonHint);
+		setUsedHint(true);
 	};
 
 	return (
@@ -168,6 +179,7 @@ function App() {
 					It took you {guessNumber} guess
 					{guessNumber > 1 ? <>es</> : null} today!
 				</p>
+				{usedHint && <p>Although... you did use the hint 🤪</p>}
 			</Modal>
 
 			<Modal
@@ -177,8 +189,12 @@ function App() {
 				onCancel={() => setShowHintModal(false)}
 				footer={null}
 			>
-				<Button type="primary" onClick={() => setShowPokemonHint(true)}>
-					Reveal Hint Picture..?
+				<Button type="primary" onClick={handleHintDisplay}>
+					{showPokemonHint ? (
+						<>Hide Hint Picture..?</>
+					) : (
+						<>Reveal Hint Picture..?</>
+					)}
 				</Button>
 				{showPokemonHint && todaysPokemonData && (
 					<img
@@ -198,19 +214,21 @@ function App() {
 					</span>
 				</Header>
 				<Content className="wordle__board">
-					<div>
-						{[...Array(guesses.length)].map(
-							(value: undefined, index: number) => (
-								<GameRow
-									todaysLetters={todaysLetters}
-									todaysPokemonLettersValue={todaysPokemonLettersValue}
-									guessValue={guesses[index]}
-									rowNumber={index}
-									guessesSubmitted={guessesSubmitted}
-								/>
-							)
-						)}
-					</div>
+					{todaysPokemonLettersValue && (
+						<div>
+							{[...Array(guesses.length)].map(
+								(value: undefined, index: number) => (
+									<GameRow
+										todaysLetters={todaysLetters}
+										todaysPokemonLettersValue={todaysPokemonLettersValue}
+										guessValue={guesses[index]}
+										rowNumber={index}
+										guessesSubmitted={guessesSubmitted}
+									/>
+								)
+							)}
+						</div>
+					)}
 				</Content>
 
 				<Footer className="wordle__footer">
