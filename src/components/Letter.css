@@ -13,12 +13,15 @@
 
 .letter__box__correct {
 	background-color: #538d4e;
+	border: 2px solid #538d4e;
 }
 
 .letter_box_wrong_spot {
 	background-color: #b59f3b;
+	border: 2px solid #b59f3b;
 }
 
 .letter_box_incorrect {
 	background-color: #3a3a3c;
+	border: 2px solid #3a3a3c;
 }
