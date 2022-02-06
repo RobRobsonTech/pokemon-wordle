@@ -44,3 +44,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+I will be making no money on this project, it's just a fun side-project! All credit for the Wordle game idea goes to the original Wordle and its creators: https://www.powerlanguage.co.uk/wordle/
+
+# License
+
+[MIT](https://github.com/RobRobsonTech/pokemon-wordle/blob/master/LICENSE.md)
