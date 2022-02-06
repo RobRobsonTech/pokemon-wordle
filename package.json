@@ -1,7 +1,7 @@
 {
 	"name": "pokemon-website",
 	"version": "0.1.0",
-	"homepage": "https://github.com/RobRobsonTech/pokemon-wordle",
+	"homepage": "https://robrobsontech.github.io/pokemon-wordle",
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.2",
