@@ -1,4 +1,5 @@
 .letter__box {
+	background-color: #000000;
 	border: 2px solid #3a3a3c;
 	height: 60px;
 	width: 60px;
@@ -7,4 +8,17 @@
 	align-items: center;
 	font-size: 2rem;
 	text-transform: uppercase;
+	margin: 3px;
+}
+
+.letter__box__correct {
+	background-color: #538d4e;
+}
+
+.letter_box_wrong_spot {
+	background-color: #b59f3b;
+}
+
+.letter_box_incorrect {
+	background-color: #3a3a3c;
 }

@@ -8,9 +8,18 @@ const { Header, Content, Footer } = Layout;
 
 function App() {
 	const [myData, setMyData] = useState<any[]>([]);
-	const [todaysPokemon, setTodaysPokemon] = useState(0);
-	const [todaysPokemonLetters, setTodaysPokemonLetters] = useState(0);
-	const [guesses, setGuesses] = useState<any[]>(["", "", "", "", ""]);
+	const [todaysPokemon, setTodaysPokemon] = useState("");
+	const [todaysPokemonLettersValue, setTodaysPokemonLettersValue] = useState(0);
+	const [todaysLetters, setTodaysLetters] = useState([]);
+	const [guesses, setGuesses] = useState<any[]>(["", "", "", "", "", ""]);
+	const [guessesSubmitted, setGuessesSubmitted] = useState([
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+	]);
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const [guessNumber, setGuessNumber] = useState(0);
@@ -61,9 +70,9 @@ function App() {
 
 			setTodaysPokemon(todaysPokemonName);
 
-			const todaysPokemonLetters = todaysPokemonName.split("");
-
-			setTodaysPokemonLetters(todaysPokemonLetters.length);
+			const todaysPokemonLettersValue = todaysPokemonName.split("");
+			setTodaysLetters(todaysPokemonLettersValue);
+			setTodaysPokemonLettersValue(todaysPokemonLettersValue.length);
 		}
 	}, [myData]);
 
@@ -71,25 +80,39 @@ function App() {
 		// Do check to see if word is the correct amount of letters.
 		// Do check to see if word already exists in api response.
 		// Do check to see if letters are in correct space or in the word elsewhere.
-		if (guesses[guessNumber].length !== todaysPokemonLetters) {
+		if (guesses[guessNumber].length !== todaysPokemonLettersValue) {
 			setErrorMessage("Not enough characters entered!");
 			return;
 		}
-		if (guesses[guessNumber] === todaysPokemon) {
-			setShowWinningModal(true);
-			setIsGameComplete(true);
+
+		if (
+			!myData.some(
+				(pokemon) =>
+					pokemon.name.toLowerCase() === guesses[guessNumber].toLowerCase()
+			)
+		) {
+			setErrorMessage("Pokemon not found! Please try one of the original 151.");
+			return;
 		}
+		let slicedSubmittedGuesses = guessesSubmitted.slice();
+		slicedSubmittedGuesses[guessNumber] = true;
+		setGuessesSubmitted(slicedSubmittedGuesses);
 
 		setGuessNumber(guessNumber + 1);
 		document?.getElementById("guess_input")?.focus();
+
+		if (guesses[guessNumber].toLowerCase() === todaysPokemon.toLowerCase()) {
+			setShowWinningModal(true);
+			setIsGameComplete(true);
+			return;
+		}
 	};
 
 	const handleChange = (event: { target: { value: any } }) => {
-		let a = guesses.slice(); //creates the clone of the state
-		a[guessNumber] = event.target.value;
-		// this.setState({arr: a});
-		setGuesses(a);
-		// guesses[guessNumber] = event.target.value;
+		setErrorMessage("");
+		let slicedGuesses = guesses.slice();
+		slicedGuesses[guessNumber] = event.target.value;
+		setGuesses(slicedGuesses);
 	};
 
 	const handleClose = () => {
@@ -118,14 +141,18 @@ function App() {
 				</Header>
 				<Content className="wordle__board">
 					<div>
-						{[...Array(6)].map((value: undefined, index: number) => (
-							<GameRow
-								// todaysWord="test"
-								// guess="test"
-								todaysPokemonLetters={todaysPokemonLetters}
-								guessValue={guesses[index]}
-							/>
-						))}
+						{[...Array(guesses.length)].map(
+							(value: undefined, index: number) => (
+								<GameRow
+									todaysLetters={todaysLetters}
+									// guess="test"
+									todaysPokemonLettersValue={todaysPokemonLettersValue}
+									guessValue={guesses[index]}
+									rowNumber={index}
+									guessesSubmitted={guessesSubmitted}
+								/>
+							)
+						)}
 					</div>
 					{/* <div>
           {for(let i = 0; i < maxGuesses; i++) {
@@ -151,7 +178,7 @@ function App() {
 							placeholder="Guess a pokemon..."
 							onChange={handleChange}
 							value={guesses[guessNumber]}
-							maxLength={todaysPokemonLetters}
+							maxLength={todaysPokemonLettersValue}
 							className="wordle__input"
 							disabled={isGameComplete}
 						/>
