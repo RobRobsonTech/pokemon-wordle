@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/pokemon-wordle/static/css/main.9121ef6e.css",
-    "main.js": "/pokemon-wordle/static/js/main.e6c97d52.js",
+    "main.css": "/pokemon-wordle/static/css/main.5340f9fc.css",
+    "main.js": "/pokemon-wordle/static/js/main.cf4cc6f0.js",
     "static/js/787.9002b352.chunk.js": "/pokemon-wordle/static/js/787.9002b352.chunk.js",
+    "static/media/MissingNo.png": "/pokemon-wordle/static/media/MissingNo.a7853bc4de854228e82a.png",
     "index.html": "/pokemon-wordle/index.html",
-    "main.9121ef6e.css.map": "/pokemon-wordle/static/css/main.9121ef6e.css.map",
-    "main.e6c97d52.js.map": "/pokemon-wordle/static/js/main.e6c97d52.js.map",
+    "main.5340f9fc.css.map": "/pokemon-wordle/static/css/main.5340f9fc.css.map",
+    "main.cf4cc6f0.js.map": "/pokemon-wordle/static/js/main.cf4cc6f0.js.map",
     "787.9002b352.chunk.js.map": "/pokemon-wordle/static/js/787.9002b352.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9121ef6e.css",
-    "static/js/main.e6c97d52.js"
+    "static/css/main.5340f9fc.css",
+    "static/js/main.cf4cc6f0.js"
   ]
 }
