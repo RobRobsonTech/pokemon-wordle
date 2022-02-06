@@ -36,6 +36,10 @@
 	text-transform: uppercase;
 }
 
+.error_message {
+	color: #d8000c;
+}
+
 .App-logo {
 	height: 40vmin;
 	pointer-events: none;
