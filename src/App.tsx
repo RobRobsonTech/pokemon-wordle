@@ -112,7 +112,7 @@ function App() {
 			)
 		) {
 			setErrorMessage(
-				"Pokemon not found! Please check your spelling and try again."
+				"Who's that Pokemon??? Sorry... that Pokemon was not found! Please check your spelling and try again."
 			);
 			return;
 		}
@@ -233,7 +233,16 @@ function App() {
 							Submit Guess
 						</Button>
 					</Input.Group>
-					{errorMessage && <div className="error_message">{errorMessage}</div>}
+					{errorMessage && (
+						<>
+							<div className="error_message">{errorMessage}</div>
+							<img
+								src={require("./assets/img/MissingNo.png")}
+								alt="MissingNo"
+								className="error__image rotate"
+							/>
+						</>
+					)}
 				</Footer>
 			</Layout>
 		</>
