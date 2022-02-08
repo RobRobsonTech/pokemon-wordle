@@ -26,6 +26,11 @@
 	width: 30px;
 }
 
+.wordle__pokemon__image {
+	height: auto;
+	width: 80%;
+}
+
 .wordle__hint__pokemon__image {
 	filter: blur(10px);
 }

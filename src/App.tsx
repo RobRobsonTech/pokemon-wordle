@@ -16,6 +16,7 @@ interface App {
 function App() {
 	const [myData, setMyData] = useState<any[]>([]);
 	const [todaysPokemonData, setTodaysPokemonData] = useState<any[]>([]);
+	const [todaysPokemonPicture, setTodaysPokemonPicture] = useState("");
 	const [todaysPokemon, setTodaysPokemon] = useState("");
 	const [todaysPokemonLettersValue, setTodaysPokemonLettersValue] = useState(0);
 	const [todaysLetters, setTodaysLetters] = useState([]);
@@ -89,12 +90,30 @@ function App() {
 
 	useEffect(() => {
 		const getPokemonSprite = async () => {
-			const response = await fetch(
-				`https://pokeapi.co/api/v2/pokemon/${todaysPokemon}`
-			);
-			const data = await response.json();
-			setTodaysPokemonData([data]);
+			if (todaysPokemon) {
+				const response = await fetch(
+					`https://pokeapi.co/api/v2/pokemon/${todaysPokemon}`
+				);
+				const data = await response.json();
+				const todaysPokemonData = data;
+				setTodaysPokemonData([todaysPokemonData]);
+
+				let todaysPokemonPicture = "";
+
+				if (todaysPokemonData?.sprites?.other?.dream_world?.front_default) {
+					todaysPokemonPicture =
+						todaysPokemonData?.sprites?.other?.dream_world?.front_default;
+				} else if (todaysPokemonData?.sprites?.other?.home?.front_default) {
+					todaysPokemonPicture =
+						todaysPokemonData?.sprites?.other?.home?.front_default;
+				} else if (todaysPokemonData?.sprites?.front_default) {
+					todaysPokemonPicture = todaysPokemonData.sprites.front_default;
+				}
+
+				setTodaysPokemonPicture(todaysPokemonPicture);
+			}
 		};
+
 		getPokemonSprite();
 	}, [todaysPokemon]);
 
@@ -168,12 +187,21 @@ function App() {
 			>
 				<p>You're a winner!</p>
 				{todaysPokemonData && (
-					<img
-						src={
-							todaysPokemonData[0]?.sprites?.other?.dream_world?.front_default
-						}
-						alt="Today's pokemon"
-					/>
+					<>
+						{todaysPokemonPicture ? (
+							<img
+								src={todaysPokemonPicture}
+								alt="Today's pokemon"
+								className="wordle__pokemon__image"
+							/>
+						) : (
+							<div>
+								Well that's embarrassing... we couldn't find an image to use as
+								a hint. So here's the first letter of today's Pokemon:{" "}
+								{todaysPokemon.charAt(0)}
+							</div>
+						)}
+					</>
 				)}
 				<p>
 					It took you {guessNumber} guess
@@ -196,11 +224,11 @@ function App() {
 						<>Reveal Hint Picture..?</>
 					)}
 				</Button>
-				{showPokemonHint && todaysPokemonData && (
+				{showPokemonHint && todaysPokemonPicture && (
 					<img
-						src={todaysPokemonData[0]?.sprites.other.dream_world.front_default}
+						src={todaysPokemonPicture}
 						alt="Today's pokemon"
-						className="wordle__hint__pokemon__image"
+						className="wordle__pokemon__image wordle__hint__pokemon__image"
 					/>
 				)}
 			</Modal>
