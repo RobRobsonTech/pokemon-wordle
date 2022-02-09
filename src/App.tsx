@@ -4,6 +4,7 @@ import { Button, Input, Layout, Modal } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import GameRow from "./components/GameRow";
 import "./App.css";
+import LoseGame from "./assets/img/willy-wonka-and-the-chocolate-factory-gene-wilder.gif";
 
 const { Header, Content, Footer } = Layout;
 
@@ -37,6 +38,7 @@ function App() {
 	const [showHintModal, setShowHintModal] = useState(false);
 	const [showPokemonHint, setShowPokemonHint] = useState(false);
 	const [usedHint, setUsedHint] = useState(false);
+	const [showLostModal, setShowLostModal] = useState(false);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -124,13 +126,17 @@ function App() {
 			return;
 		}
 
+		// Reformat guess & pokemon for better comparisons
+		const todaysPokemonFormatted = todaysPokemon
+			.toLowerCase()
+			.replace(" ", "-");
+
+		const formattedGuess = guesses[guessNumber].toLowerCase().replace(" ", "-");
+
 		// Check if pokemon exists in our data
-		if (
-			!myData.some(
-				(pokemon) =>
-					pokemon.name.toLowerCase() === guesses[guessNumber].toLowerCase()
-			)
-		) {
+		const compare = (pokemon: { name: any }) => formattedGuess === pokemon.name;
+
+		if (!myData.some(compare)) {
 			setErrorMessage(
 				"Who's that Pokemon??? Sorry... that Pokemon was not found! Please check your spelling and try again."
 			);
@@ -142,15 +148,32 @@ function App() {
 		slicedSubmittedGuesses[guessNumber] = true;
 		setGuessesSubmitted(slicedSubmittedGuesses);
 
-		// Increase guess number & refocus input
+		// Increase guess number
 		setGuessNumber(guessNumber + 1);
-		document?.getElementById("guess_input")?.focus();
 
 		// Check if the guess is fully correct
-		if (guesses[guessNumber].toLowerCase() === todaysPokemon.toLowerCase()) {
+		if (formattedGuess === todaysPokemonFormatted) {
 			setShowWinningModal(true);
 			setIsGameComplete(true);
 			return;
+		}
+
+		// Refocus input
+		document?.getElementById("guess_input")?.focus();
+
+		// Check if the user has lost the game
+		if (guessNumber >= 5) {
+			setShowLostModal(true);
+			setIsGameComplete(true);
+			const sadTrombone = require("./assets/sound/sadtrombone.mp3");
+
+			const goodDaySir = require("./assets/sound/yougetnothing.mp3");
+
+			const sadTromboneAudio = new Audio(sadTrombone);
+			const goodDaySirAudio = new Audio(goodDaySir);
+
+			sadTromboneAudio.play();
+			goodDaySirAudio.play();
 		}
 	};
 
@@ -175,9 +198,12 @@ function App() {
 		setUsedHint(true);
 	};
 
+	const handleCloseLost = () => {
+		setShowLostModal(false);
+	};
+
 	return (
 		<>
-			{showWinningModal}
 			<Modal
 				title="Congratulations!!!"
 				visible={showWinningModal}
@@ -208,6 +234,22 @@ function App() {
 					{guessNumber > 1 ? <>es</> : null} today!
 				</p>
 				{usedHint && <p>Although... you did use the hint 🤪</p>}
+			</Modal>
+
+			<Modal
+				title="Big oof..."
+				visible={showLostModal}
+				onOk={handleCloseLost}
+				onCancel={handleCloseLost}
+				footer={null}
+			>
+				<p>Let's hope tomorrow's guess is easier!</p>
+				<img
+					src={LoseGame}
+					alt="You Lose - Willy Wonka"
+					className="wordle__pokemon__image"
+				/>
+				{usedHint && <p>... you even used the hint 😢</p>}
 			</Modal>
 
 			<Modal

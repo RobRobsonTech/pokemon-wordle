@@ -17,19 +17,24 @@ export default function Letter({
 	rowNumber,
 	guessesSubmitted,
 }: LetterValues) {
+	let fixedLetter = letter;
+	if (letter === " ") {
+		fixedLetter = "-";
+	}
 	return (
 		<>
 			<Col
 				className={`letter__box ${
 					guessesSubmitted[rowNumber] &&
-					(todaysLetter && todaysLetter.toLowerCase() === letter?.toLowerCase()
+					(todaysLetter &&
+					todaysLetter.toLowerCase() === fixedLetter?.toLowerCase()
 						? "letter__box__correct"
-						: todaysLetters?.includes(letter?.toLowerCase())
+						: todaysLetters?.includes(fixedLetter?.toLowerCase())
 						? "letter_box_wrong_spot"
 						: "letter_box_incorrect")
 				} `}
 			>
-				{letter ? letter : null}
+				{fixedLetter ? letter : null}
 			</Col>
 		</>
 	);
