@@ -1,16 +1,19 @@
 {
   "files": {
     "main.css": "/pokemon-wordle/static/css/main.f2d2bae3.css",
-    "main.js": "/pokemon-wordle/static/js/main.3b1cb921.js",
+    "main.js": "/pokemon-wordle/static/js/main.d299ce02.js",
     "static/js/787.9002b352.chunk.js": "/pokemon-wordle/static/js/787.9002b352.chunk.js",
+    "static/media/willy-wonka-and-the-chocolate-factory-gene-wilder.gif": "/pokemon-wordle/static/media/willy-wonka-and-the-chocolate-factory-gene-wilder.7b44039120ab63f1c564.gif",
     "static/media/MissingNo.png": "/pokemon-wordle/static/media/MissingNo.a7853bc4de854228e82a.png",
+    "static/media/sadtrombone.mp3": "/pokemon-wordle/static/media/sadtrombone.06ba4f30c17f02bafb5c.mp3",
+    "static/media/yougetnothing.mp3": "/pokemon-wordle/static/media/yougetnothing.3c4627312e098e1697bc.mp3",
     "index.html": "/pokemon-wordle/index.html",
     "main.f2d2bae3.css.map": "/pokemon-wordle/static/css/main.f2d2bae3.css.map",
-    "main.3b1cb921.js.map": "/pokemon-wordle/static/js/main.3b1cb921.js.map",
+    "main.d299ce02.js.map": "/pokemon-wordle/static/js/main.d299ce02.js.map",
     "787.9002b352.chunk.js.map": "/pokemon-wordle/static/js/787.9002b352.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f2d2bae3.css",
-    "static/js/main.3b1cb921.js"
+    "static/js/main.d299ce02.js"
   ]
 }
